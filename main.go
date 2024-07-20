@@ -76,13 +76,7 @@ func perClientRateLimiter(next func(w http.ResponseWriter, r *http.Request)) htt
 			json.NewEncoder(w).Encode(&message)
 			return
 		}
-		message := Message{
-			Status: "Request OK",
-			Body:   "OK",
-		}
-		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(&message)
-		return
+		next(w, r)
 	})
 }
 
